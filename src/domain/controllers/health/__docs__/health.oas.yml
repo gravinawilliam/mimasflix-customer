@@ -1,0 +1,41 @@
+tags:
+  - name: Health
+    description: Application health check
+
+paths:
+  /healthz:
+    get:
+      tags:
+        - Health
+      summary: Health check
+      description: Check whether the application is healthy or unhealthy
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthCheckStatus'
+        500:
+          description: 'Internal Server Error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    HealthCheckStatus:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Service status
+          example: 'ALIVE'
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Error description
+          example: 'Unexpected internal server error'

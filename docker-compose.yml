@@ -1,0 +1,45 @@
+version: '3.7'
+
+networks:
+  will-net:
+    external: true
+
+services:
+  template:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.local
+    entrypoint: ./entrypoint.sh
+    container_name: template
+    image: template:latest
+    environment:
+      APP_PORT: ${APP_PORT}
+      APP_NAME: ${APP_NAME}
+      APP_DESCRIPTION: ${APP_DESCRIPTION}
+      AUTHOR_NAME: ${AUTHOR_NAME}
+      AUTHOR_EMAIL: ${AUTHOR_EMAIL}
+      BASE_PATH: ${BASE_PATH}
+      DOCS_PATH: ${DOCS_PATH}
+      FRAMEWORK: ${FRAMEWORK}
+      SONAR_LOGIN: ${SONAR_LOGIN}
+      SONAR_PASSWORD: ${SONAR_PASSWORD}
+      SONAR_PROJECT_KEY: ${SONAR_PROJECT_KEY}
+      SONAR_SERVER_URL: ${SONAR_SERVER_URL}
+      SONAR_PORT: ${SONAR_PORT}
+      LOGS_FOLDER: ${LOGS_FOLDER}
+      NODE_ENV: ${NODE_ENV}
+    ports:
+      - '${APP_PORT}:${APP_PORT}'
+    networks:
+      - will-net
+    volumes:
+      - .:/home/node/app/template
+
+  sonarqube:
+    container_name: sonarqube
+    image: sonarqube:latest
+    networks:
+      - will-net
+    ports:
+      - '${SONAR_PORT}:${SONAR_PORT}'
+      - '9092:9092'

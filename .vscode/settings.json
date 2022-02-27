@@ -1,0 +1,12 @@
+{
+  "cSpell.words": ["commitlint"],
+  "cSpell.enabled": true,
+  "cSpell.userWords": [], // only use words from .cspell.json
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "eslint.alwaysShowStatus": true,
+  "github-actions.workflows.pinned.workflows": [".github/workflows/pull_request.yml"],
+  "github-actions.workflows.pinned.refresh.enabled": true,
+  "github-actions.workflows.pinned.refresh.interval": 65
+}

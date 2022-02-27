@@ -1,0 +1,43 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "declaration": false,
+    "lib": ["es2019", "es2020", "es2021", "esnext"],
+    "module": "commonjs",
+    "noEmit": false,
+    "outDir": "./dist",
+    "rootDir": "./",
+    "sourceMap": true,
+    "target": "es2021",
+    "baseUrl": "./",
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "removeComments": true,
+    "paths": {
+      "@application/*": ["src/application/*"],
+      "@domain/*": ["src/domain/*"],
+      "@infra/*": ["src/infra/*"],
+      "@infrastructure/*": ["src/infrastructure/*"],
+      "@presentation/*": ["src/presentation/*"],
+      "@test/*": ["test/*"],
+      "@main/*": ["src/main/*"]
+    },
+    "typeRoots": ["../node_modules/@types", "node_modules/@types", "src/types"],
+    "forceConsistentCasingInFileNames": true,
+    "listEmittedFiles": false,
+    "listFiles": false,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "traceResolution": false,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "strict": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "pretty": true
+  },
+  "exclude": ["node_modules", "dist"],
+  "compileOnSave": false
+}

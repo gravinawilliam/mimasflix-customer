@@ -1,0 +1,58 @@
+name: 'PR: Validate and Test'
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited]
+
+jobs:
+  validate:
+    name: ✅ Validate project
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: ⬇️ Checkout project
+        uses: actions/checkout@v2
+
+      - name: 🟢 Setup NodeJS
+        uses: actions/setup-node@v2
+
+      - name: 📥 Install dependencies
+        run: yarn
+
+      - name: 🖍️ Check types
+        run: yarn check:types
+
+      - name: 💅 Check format
+        run: yarn check:format
+
+      - name: 📑 Check lint
+        run: yarn check:lint
+
+      - name: 🔤 Check spelling
+        run: yarn check:spelling
+
+      - name: 👩🏻‍💻 Run the danger
+        run: yarn danger ci
+
+  test:
+    name: 🧑‍🔬 Test project
+    runs-on: ubuntu-latest
+    needs: validate
+    steps:
+      - name: ⬇️ Checkout project
+        uses: actions/checkout@v2
+
+      - name: 🟢 Setup NodeJS
+        uses: actions/setup-node@v2
+
+      - name: 📥 Install dependencies
+        run: yarn
+
+      - name: 🧪 Run the tests and 📊 Generate coverage report
+        uses: mattallty/jest-github-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          test-command: 'yarn test:coverage'
+          coverage-comment: true
