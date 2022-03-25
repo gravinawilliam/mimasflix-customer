@@ -104,6 +104,7 @@ module.exports = {
         }
       },
       rules: {
+        "object-shorthand": ["error", "always"],
         '@typescript-eslint/no-namespace': 'off',
         'prettier/prettier': 'error',
         // For faster development

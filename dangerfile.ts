@@ -12,14 +12,14 @@ const paths = {
   },
   controllers: [
     {
-      moduleName: 'health',
-      fileNames: ['health']
+      moduleName: 'customers',
+      fileNames: ['create-customer']
     }
   ],
   useCases: [
     {
-      moduleName: 'health',
-      fileNames: ['health']
+      moduleName: 'customers',
+      fileNames: ['create-customer']
     }
   ]
 };

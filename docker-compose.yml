@@ -1,17 +1,17 @@
 version: '3.7'
 
 networks:
-  will-net:
+  mimasflix-network:
     external: true
 
 services:
-  template:
+  mimasflix-customer:
     build:
       context: .
       dockerfile: ./Dockerfile.local
     entrypoint: ./entrypoint.sh
-    container_name: template
-    image: template:latest
+    container_name: mimasflix-customer
+    image: mimasflix-customer:latest
     environment:
       APP_PORT: ${APP_PORT}
       APP_NAME: ${APP_NAME}
@@ -28,18 +28,40 @@ services:
       SONAR_PORT: ${SONAR_PORT}
       LOGS_FOLDER: ${LOGS_FOLDER}
       NODE_ENV: ${NODE_ENV}
+      DATABASE_TYPE: ${DATABASE_TYPE}
+      DATABASE_HOST: ${DATABASE_HOST}
+      DATABASE_PORT: ${DATABASE_PORT}
+      DATABASE_USERNAME: ${DATABASE_USERNAME}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE_DATABASE: ${DATABASE_DATABASE}
     ports:
       - '${APP_PORT}:${APP_PORT}'
     networks:
-      - will-net
+      - mimasflix-network
     volumes:
-      - .:/home/node/app/template
+      - .:/home/node/app/mimasflix-customer
+
+  postgres:
+    container_name: postgres
+    image: 'bitnami/postgresql:latest'
+    environment:
+      POSTGRESQL_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRESQL_USERNAME: ${DATABASE_USERNAME}
+      POSTGRESQL_DATABASE: ${DATABASE_DATABASE}
+      POSTGRESQL_TIMEZONE: America/SAO_PAULO
+    ports:
+      - "${DATABASE_PORT}:5432"
+    restart: on-failure
+    networks:
+      - mimasflix-network
+    volumes:
+      - .:/home/postgresql/data
 
   sonarqube:
     container_name: sonarqube
     image: sonarqube:latest
     networks:
-      - will-net
+      - mimasflix-network
     ports:
       - '${SONAR_PORT}:${SONAR_PORT}'
       - '9092:9092'

@@ -39,5 +39,8 @@
     "pretty": true
   },
   "exclude": ["node_modules", "dist"],
-  "compileOnSave": false
+  "compileOnSave": false,
+  "ts-node" : {
+    "swc" : true
+  }
 }

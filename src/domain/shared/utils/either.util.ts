@@ -1,43 +1,43 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable max-classes-per-file */
-export type Either<F, S> = Left<F, S> | Right<F, S>;
+export type Either<F, S> = Failure<F, S> | Success<F, S>;
 
-export class Left<F, S> {
+export class Failure<F, S> {
   readonly value: F;
 
   constructor(value: F) {
     this.value = value;
   }
 
-  isLeft(): this is Left<F, S> {
+  isFailure(): this is Failure<F, S> {
     return true;
   }
 
-  isRight(): this is Right<F, S> {
+  isSuccess(): this is Success<F, S> {
     return false;
   }
 }
 
-export class Right<F, S> {
+export class Success<F, S> {
   readonly value: S;
 
   constructor(value: S) {
     this.value = value;
   }
 
-  isLeft(): this is Left<F, S> {
+  isFailure(): this is Failure<F, S> {
     return false;
   }
 
-  isRight(): this is Right<F, S> {
+  isSuccess(): this is Success<F, S> {
     return true;
   }
 }
 
-export const left = <F, S>(f: F): Either<F, S> => {
-  return new Left<F, S>(f);
+export const failure = <F, S>(error: F): Either<F, S> => {
+  return new Failure<F, S>(error);
 };
 
-export const right = <F, S>(s: S): Either<F, S> => {
-  return new Right<F, S>(s);
+export const success = <F, S>(value: S): Either<F, S> => {
+  return new Success<F, S>(value);
 };

@@ -10,5 +10,20 @@ export const serverError = (error: unknown): IHttpResponse<Error> => ({
 
 export const ok = (data: unknown): IHttpResponse => ({
   statusCode: HttpStatusCode.OK,
-  data: data
+  data
+});
+
+export const created = (data: unknown): IHttpResponse => ({
+  statusCode: HttpStatusCode.CREATED,
+  data
+});
+
+export const conflict = (error: Error): IHttpResponse => ({
+  statusCode: HttpStatusCode.CONFLICT,
+  data: error
+});
+
+export const badRequest = (error: Error): IHttpResponse => ({
+  statusCode: HttpStatusCode.BAD_REQUEST,
+  data: error
 });

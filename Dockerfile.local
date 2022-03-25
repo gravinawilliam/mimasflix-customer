@@ -3,10 +3,10 @@ FROM node:16.14.0-alpine
 
 RUN apk add --no-cache bash
 # RUN npm install -g yarn
-RUN npm config set cache /home/node/app/template/.npm-cache --global
+RUN npm config set cache /home/node/app/mimasflix-customer/.npm-cache --global
 
-RUN mkdir -p /home/node/app/template
+RUN mkdir -p /home/node/app/mimasflix-customer
 
 USER node
 
-WORKDIR /home/node/app/template
+WORKDIR /home/node/app/mimasflix-customer

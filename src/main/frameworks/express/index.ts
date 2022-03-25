@@ -9,6 +9,8 @@ import { AppConfig, AppInfo } from '@main/config/app.config';
 import { SwaggerConfig } from '@main/config/swagger.config';
 import { showBanner } from '@main/utils/banner.util';
 
+import routes from './routes';
+
 export class ExpressFramework {
   public async execute(): Promise<Application> {
     const app = this.initializeSwagger(express());
@@ -16,6 +18,7 @@ export class ExpressFramework {
     app.use(express.urlencoded({ extended: true }));
     app.use(cookieParser());
     app.use(helmet());
+    app.use(routes);
     await app.listen(AppConfig.PORT, () => showBanner());
     return app;
   }
